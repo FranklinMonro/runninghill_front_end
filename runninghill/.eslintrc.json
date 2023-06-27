@@ -12,7 +12,7 @@
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "project": "./tsconfig.eslint.json",
+        "project": "./runninghill/tsconfig.eslint.json",
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
