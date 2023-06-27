@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    display: grid;
+    grid-template-columns: 5px 1fr 5px;
+    grid-template-rows: auto 1fr auto;
+    grid-gap: 12px;
+    grid-template-areas:
+    "header header header"
+    "content content content"
+    "footer footer footer";
+    height: 100vh;
+}
+
+app-header {
+    grid-area: header;
+    // text-align: center;
+}
+
+app-main {
+    grid-area: content;
+    padding: 25px;
+    height: 100%;
+}
+
+app-footer {
+    grid-area: footer;
+    background-image: linear-gradient(to left, (#0571C6), rgb(0, 72, 148));
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+}
