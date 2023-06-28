@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SentencesComponent } from './sentences/sentences.component';
 
 const routes: Routes = [
-  { path: 'sentence', component: SentencesComponent },
+  { path: '', component: SentencesComponent },
 ];
 
 @NgModule({
