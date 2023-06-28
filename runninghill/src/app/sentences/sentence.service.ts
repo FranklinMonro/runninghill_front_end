@@ -14,7 +14,7 @@ import { WordTypes } from './sentences.interface';
 export class SentenceService {
   constructor(private httpClient: HttpClient) { }
 
-  public getUsers = (): Observable<WordTypes> => this.httpClient.get<WordTypes>(
+  public getWordTypes = (): Observable<WordTypes> => this.httpClient.get<WordTypes>(
     `${environment.apiUrl}runninghillapi/sentenceroutes/wordtype`,
     { observe: 'response' },
   ).pipe(
