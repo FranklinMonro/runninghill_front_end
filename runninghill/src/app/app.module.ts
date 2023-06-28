@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import { SentencesComponent } from './sentences/sentences.component';
     BrowserAnimationsModule,
     NgbModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
     ToastrModule.forRoot(),
   ],
   providers: [],

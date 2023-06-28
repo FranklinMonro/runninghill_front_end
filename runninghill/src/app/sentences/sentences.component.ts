@@ -2,6 +2,8 @@
 /* eslint-disable import/prefer-default-export */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
 import { SentenceService } from './sentence.service';
 
 @Component({
@@ -14,7 +16,10 @@ export class SentencesComponent implements OnInit, OnDestroy {
 
   public active = 1;
 
-  constructor(private sentenceService: SentenceService) { }
+  constructor(
+    private sentenceService: SentenceService,
+    private toastr: ToastrService,
+  ) { }
 
   ngOnInit() {
     this.getWordTypes();
@@ -26,6 +31,9 @@ export class SentencesComponent implements OnInit, OnDestroy {
         console.log('resp', resp);
       },
       error: (err: ErrorEvent) => {
+        this.toastr.error(err.message, 'Major Error', {
+          timeOut: 3000,
+        });
         console.log('err', err);
       },
       complete: () => {
