@@ -12,6 +12,8 @@ import { SentenceService } from './sentence.service';
 export class SentencesComponent implements OnInit, OnDestroy {
   private subcription: Subscription | undefined;
 
+  public active = 1;
+
   constructor(private sentenceService: SentenceService) { }
 
   ngOnInit() {
