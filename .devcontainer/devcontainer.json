@@ -18,8 +18,8 @@
 	"forwardPorts": [4200],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "npm install",
-	"postStartCommand": "ng serve",
+	"postCreateCommand": "./runninghill/npm install",
+	"postStartCommand": "./runninghill/ng serve",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
