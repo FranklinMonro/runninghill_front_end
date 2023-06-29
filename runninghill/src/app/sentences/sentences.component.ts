@@ -101,7 +101,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
       });
   };
 
-  private postSentence = (sentence: string): void => {
+  public postSentence = (sentence: string): void => {
     this.spinner.show();
     this.subcription = this.sentenceService.postSentences(sentence).subscribe({
       next: (resp: any) => {
@@ -120,7 +120,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
     });
   };
 
-  private getSentencec = (): void => {
+  public getSentences = (): void => {
     this.spinner.show();
     this.subcription = this.sentenceService.getAllSentences().subscribe({
       next: (resp: any) => {
@@ -139,7 +139,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
     });
   };
 
-  private deleteSentence = (sentenceID: string): void => {
+  public deleteSentence = (sentenceID: string): void => {
     this.spinner.show();
     this.subcription = this.sentenceService.deleteSentences(sentenceID).subscribe({
       next: (resp: any) => {

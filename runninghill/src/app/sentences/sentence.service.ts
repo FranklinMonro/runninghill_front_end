@@ -31,7 +31,7 @@ export class SentenceService {
     word: string,
     wordPageNumber: number,
   ): Observable<WordsApiDataReturn> => this.httpClient.get<WordsApiDataReturn>(
-    `${environment.apiUrl}runninghillapi/wordsapi/wordtype/${word}/${wordPageNumber}`,
+    `${environment.apiUrl}runninghillapi/wordsapi/${word}/${wordPageNumber}`,
     { observe: 'response' },
   ).pipe(
     map((res: any) => {
