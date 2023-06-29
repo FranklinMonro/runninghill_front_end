@@ -19,7 +19,7 @@ export class SentenceService {
     { observe: 'response' },
   ).pipe(
     map((res: any) => {
-      if (!res.body.response) {
+      if (!res.body) {
         throw new Error('No response in body');
       }
       return res;

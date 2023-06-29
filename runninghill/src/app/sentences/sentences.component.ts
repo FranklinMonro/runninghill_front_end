@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { SentenceService } from './sentence.service';
+import { WordTypes } from './sentences.interface';
 
 @Component({
   selector: 'app-sentences',
@@ -16,6 +17,8 @@ export class SentencesComponent implements OnInit, OnDestroy {
   private subcription: Subscription | undefined;
 
   public active = 1;
+
+  public wordTypes: WordTypes[] = [];
 
   constructor(
     private sentenceService: SentenceService,
@@ -31,17 +34,16 @@ export class SentencesComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.subcription = this.sentenceService.getWordTypes().subscribe({
       next: (resp: any) => {
-        console.log('resp', resp);
+        this.toastr.success('succ', 'sicc');
+        this.wordTypes = resp.body;
       },
       error: (err: ErrorEvent) => {
         this.toastr.error(err.message, 'Major Error', {
           timeOut: 3000,
         });
-        console.log('err', err);
         this.spinner.hide();
       },
       complete: () => {
-        console.log('complete');
         this.spinner.hide();
       },
     });

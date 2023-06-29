@@ -1,14 +1,19 @@
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
 	<li [ngbNavItem]="1">
 		<button ngbNavLink>Create Sentence</button>
 		<ng-template ngbNavContent>
-			<p>
-				Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-				master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-				keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat
-				salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-			</p>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+          Select Word Type
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+          <li><button class="dropdown-item" type="button">Action</button></li>
+          <li><button class="dropdown-item" type="button">Another action</button></li>
+          <li><button class="dropdown-item" type="button">Something else here</button></li>
+        </ul>
+      </div>
 		</ng-template>
 	</li>
 	<li [ngbNavItem]="2">
