@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import environment from '../../enviroment/enviroment';
-import { WordTypes, WordsApiDataReturn } from './sentences.interface';
+import { SentenceTypes, WordTypes, WordsApiDataReturn } from './sentences.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +32,47 @@ export class SentenceService {
     wordPageNumber: number,
   ): Observable<WordsApiDataReturn> => this.httpClient.get<WordsApiDataReturn>(
     `${environment.apiUrl}runninghillapi/wordsapi/wordtype/${word}/${wordPageNumber}`,
+    { observe: 'response' },
+  ).pipe(
+    map((res: any) => {
+      if (!res.body) {
+        throw new Error('No response in body');
+      }
+      return res;
+    }),
+    catchError((err: HttpErrorResponse) => { throw new Error(err.message); }),
+  );
+
+  public getAllSentences = (): Observable<SentenceTypes> => this.httpClient.get<SentenceTypes>(
+    `${environment.apiUrl}runninghillapi/sentenceroutes/sentence`,
+    { observe: 'response' },
+  ).pipe(
+    map((res: any) => {
+      if (!res.body) {
+        throw new Error('No response in body');
+      }
+      return res;
+    }),
+    catchError((err: HttpErrorResponse) => { throw new Error(err.message); }),
+  );
+
+  public postSentences = (sentence: string): Observable<boolean> => this.httpClient.post<boolean>(
+    `${environment.apiUrl}runninghillapi/sentenceroutes/sentence/${sentence}`,
+    { observe: 'response' },
+  ).pipe(
+    map((res: any) => {
+      if (!res.body) {
+        throw new Error('No response in body');
+      }
+      return res;
+    }),
+    catchError((err: HttpErrorResponse) => { throw new Error(err.message); }),
+  );
+
+  public deleteSentences = (
+    sentenceID: string,
+  ): Observable<boolean> => this.httpClient.delete<boolean>(
+    `${environment.apiUrl}runninghillapi/sentenceroutes/sentence/${sentenceID}/false`,
     { observe: 'response' },
   ).pipe(
     map((res: any) => {
