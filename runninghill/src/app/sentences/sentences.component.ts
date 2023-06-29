@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { SentenceService } from './sentence.service';
-import { WordTypes } from './sentences.interface';
+import { WordTypes, WordsApiDataReturn } from './sentences.interface';
 
 @Component({
   selector: 'app-sentences',
@@ -18,7 +18,13 @@ export class SentencesComponent implements OnInit, OnDestroy {
 
   public active = 1;
 
-  public wordTypes: WordTypes[] = [];
+  public wordType: string = '';
+
+  public wordTypesList: WordTypes[] = [];
+
+  public words: string[] = [];
+
+  public wordPageNumber: number = 1;
 
   constructor(
     private sentenceService: SentenceService,
@@ -35,7 +41,28 @@ export class SentencesComponent implements OnInit, OnDestroy {
     this.subcription = this.sentenceService.getWordTypes().subscribe({
       next: (resp: any) => {
         this.toastr.success('Word Types received', 'SUCCESS');
-        this.wordTypes = resp.body;
+        this.wordTypesList = resp.body;
+      },
+      error: (err: ErrorEvent) => {
+        this.toastr.error(err.message, 'Major Error', {
+          timeOut: 3000,
+        });
+        this.spinner.hide();
+      },
+      complete: () => {
+        this.spinner.hide();
+      },
+    });
+  };
+
+  public getWordsByWordTypes = (wordType: string): void => {
+    this.spinner.show();
+    this.subcription = this.sentenceService.getWordByTypes(wordType, 1).subscribe({
+      next: (resp: any) => {
+        this.toastr.success(`Words for ${wordType}`, 'SUCCESS');
+        const { results, page } = resp.body as WordsApiDataReturn;
+        this.words = results!.data!;
+        this.wordPageNumber = Number(page!);
       },
       error: (err: ErrorEvent) => {
         this.toastr.error(err.message, 'Major Error', {
