@@ -2,7 +2,7 @@
 <div style="padding: 5px;">
 	<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
 		<li [ngbNavItem]="1">
-			<button ngbNavLink>Create Sentence</button>
+			<button ngbNavLink (click)="getWordTypes()">Create Sentence</button>
 			<ng-template ngbNavContent>
 				<div class="row">
 					<div class="col">
