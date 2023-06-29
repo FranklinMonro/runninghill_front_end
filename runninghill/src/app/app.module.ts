@@ -5,8 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -30,8 +28,6 @@ import { SentencesComponent } from './sentences/sentences.component';
     BrowserAnimationsModule,
     NgbModule,
     MatToolbarModule,
-    MatMenuModule,
-    MatButtonModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
   ],

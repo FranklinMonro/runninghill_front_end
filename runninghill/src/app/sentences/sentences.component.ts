@@ -34,7 +34,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.subcription = this.sentenceService.getWordTypes().subscribe({
       next: (resp: any) => {
-        this.toastr.success('succ', 'sicc');
+        this.toastr.success('Word Types received', 'SUCCESS');
         this.wordTypes = resp.body;
       },
       error: (err: ErrorEvent) => {

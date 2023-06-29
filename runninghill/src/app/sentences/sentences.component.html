@@ -4,15 +4,19 @@
 	<li [ngbNavItem]="1">
 		<button ngbNavLink>Create Sentence</button>
 		<ng-template ngbNavContent>
-      <div class="btn-group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-          Select Word Type
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-          <li><button class="dropdown-item" type="button">Action</button></li>
-          <li><button class="dropdown-item" type="button">Another action</button></li>
-          <li><button class="dropdown-item" type="button">Something else here</button></li>
-        </ul>
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
+              Toggle dropdown
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul style="list-style-type: none">
+                <li *ngFor="let word of wordTypes" ><button ngbDropdownItem>{{word}}</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 		</ng-template>
 	</li>
