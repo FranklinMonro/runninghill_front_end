@@ -3,6 +3,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { SentenceService } from './sentence.service';
 
@@ -19,6 +20,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
   constructor(
     private sentenceService: SentenceService,
     private toastr: ToastrService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit() {
@@ -26,6 +28,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
   }
 
   private getWordTypes = (): void => {
+    this.spinner.show();
     this.subcription = this.sentenceService.getWordTypes().subscribe({
       next: (resp: any) => {
         console.log('resp', resp);
@@ -35,9 +38,11 @@ export class SentencesComponent implements OnInit, OnDestroy {
           timeOut: 3000,
         });
         console.log('err', err);
+        this.spinner.hide();
       },
       complete: () => {
         console.log('complete');
+        this.spinner.hide();
       },
     });
   };
