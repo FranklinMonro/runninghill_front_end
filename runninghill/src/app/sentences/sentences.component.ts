@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { SentenceService } from './sentence.service';
-import { SentenceTypes, WordTypes, WordsApiDataReturn } from './sentences.interface';
+import { SencteceReturns, SentenceTypes, WordTypes, WordsApiDataReturn } from './sentences.interface';
 
 @Component({
   selector: 'app-sentences',
@@ -130,9 +130,13 @@ export class SentencesComponent implements OnInit, OnDestroy {
   public postSentence = (sentence: string): void => {
     this.spinner.show();
     this.subcription = this.sentenceService.postSentences(sentence).subscribe({
-      next: (resp: any) => {
+      next: (resp: boolean) => {
         this.toastr.success('Sentences received', 'SUCCESS');
-        console.log(resp.body);
+        if (!resp) {
+          this.toastr.error('Sentence was not posted', 'ERROR', {
+            timeOut: 3000,
+          });
+        }
       },
       error: (err: ErrorEvent) => {
         this.toastr.error(err.message, 'ERROR', {
@@ -147,12 +151,14 @@ export class SentencesComponent implements OnInit, OnDestroy {
     });
   };
 
-  public getSentences = (): void => {
+  public getSentences = (page: number): void => {
     this.spinner.show();
-    this.subcription = this.sentenceService.getAllSentences().subscribe({
+    this.subcription = this.sentenceService.getAllSentences(page).subscribe({
       next: (resp: any) => {
         this.toastr.success('Sentences received', 'SUCCESS');
-        this.wordTypesList = resp.body;
+        const { total, result } = resp.body as SencteceReturns;
+        this.sentenceList = result;
+        this.sentenceCollectionSize = total;
       },
       error: (err: ErrorEvent) => {
         this.toastr.error(err.message, 'ERROR', {
@@ -169,9 +175,14 @@ export class SentencesComponent implements OnInit, OnDestroy {
   public deleteSentence = (sentenceID: string): void => {
     this.spinner.show();
     this.subcription = this.sentenceService.deleteSentences(sentenceID).subscribe({
-      next: (resp: any) => {
+      next: (resp: boolean) => {
         this.toastr.success('Sentences received', 'SUCCESS');
-        console.log(resp.body);
+        if (!resp) {
+          this.toastr.error('Sentence was not deleted', 'ERROR', {
+            timeOut: 3000,
+          });
+        }
+        this.getSentences(1);
       },
       error: (err: ErrorEvent) => {
         this.toastr.error(err.message, 'ERROR', {

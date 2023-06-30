@@ -54,10 +54,11 @@
 						<div class="col-lg">
 							{{ createSentence }}
 						</div>
-						<div class="col-lg">
+						<div class="col-md">
 							<div class="row">
-								<div class="col-sm">
+								<div class="col">
 									<button type="button" class="btn btn-danger" (click)="clearSentence()">Clear</button>
+									&nbsp; 
 									<button type="button" class="btn btn-success"
 										(click)="postSentence(createSentence)">Post</button>
 								</div>
@@ -68,7 +69,7 @@
 			</ng-template>
 		</li>
 		<li [ngbNavItem]="2">
-			<button ngbNavLink (click)="getSentences()">Sentences</button>
+			<button ngbNavLink (click)="getSentences(sentencePageNumber)">Sentences</button>
 			<ng-template ngbNavContent>
 				<div *ngIf="wordsList.length > 0">
 					<table class="table table-striped">
@@ -92,7 +93,7 @@
 					<div class="d-flex justify-content-between p-2">
 						<ngb-pagination [collectionSize]="sentenceCollectionSize" [(page)]="sentencePageNumber"
 							[pageSize]="sentencePageSize" [maxSize]="5" [rotate]="true"
-							(pageChange)="getWordsByWordTypesPagenation(wordPageNumber)">
+							(pageChange)="getSentences(sentencePageNumber)">
 						</ngb-pagination>
 					</div>
 				</div>

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import environment from '../../enviroment/enviroment';
-import { SentenceTypes, WordTypes, WordsApiDataReturn } from './sentences.interface';
+import { SencteceReturns, WordTypes, WordsApiDataReturn } from './sentences.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -43,8 +43,10 @@ export class SentenceService {
     catchError((err: HttpErrorResponse) => { throw new Error(err.message); }),
   );
 
-  public getAllSentences = (): Observable<SentenceTypes> => this.httpClient.get<SentenceTypes>(
-    `${environment.apiUrl}runninghillapi/sentenceroutes/sentence`,
+  public getAllSentences = (
+    page: number,
+  ): Observable<SencteceReturns> => this.httpClient.get<SencteceReturns>(
+    `${environment.apiUrl}runninghillapi/sentenceroutes/sentence/${page}`,
     { observe: 'response' },
   ).pipe(
     map((res: any) => {
@@ -61,7 +63,8 @@ export class SentenceService {
     { observe: 'response' },
   ).pipe(
     map((res: any) => {
-      if (!res.body) {
+      console.log(res);
+      if (!res) {
         throw new Error('No response in body');
       }
       return res;
@@ -76,7 +79,7 @@ export class SentenceService {
     { observe: 'response' },
   ).pipe(
     map((res: any) => {
-      if (!res.body) {
+      if (!res) {
         throw new Error('No response in body');
       }
       return res;

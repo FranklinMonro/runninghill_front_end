@@ -8,6 +8,11 @@ interface SentenceTypes {
   sentence?: string;
 }
 
+interface SencteceReturns {
+  total: number;
+  result: SentenceTypes[];
+}
+
 interface WordsApiDataResults {
   total?: number;
   data?: string[];
@@ -21,6 +26,7 @@ interface WordsApiDataReturn {
 export {
   WordTypes,
   SentenceTypes,
+  SencteceReturns,
   WordsApiDataReturn,
   WordsApiDataResults,
 };
