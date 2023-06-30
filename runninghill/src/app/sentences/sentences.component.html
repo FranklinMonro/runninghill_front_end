@@ -14,7 +14,8 @@
 							<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 								<ul style="list-style-type: none">
 									<li *ngFor="let word of wordTypesList">
-										<button ngbDropdownItem (click)="getWordsByWordTypes(word.wordType!)">{{ word.wordType }}</button>
+										<button ngbDropdownItem (click)="getWordsByWordTypes(word.wordType!)">{{
+											word.wordType }}</button>
 									</li>
 								</ul>
 							</div>
@@ -22,7 +23,7 @@
 					</div>
 				</div>
 				<div *ngIf="wordsList.length > 0">
-					<table class="table table-striped" >
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th scope="col">#</th>
@@ -34,38 +35,33 @@
 							<tr *ngFor="let word of wordsList; index as i">
 								<th scope="row">{{ i + 1 }}</th>
 								<td>{{ word }}</td>
-								<td><button type="button" class="btn btn-secondary" (click)="addToSentence(word)">Add</button></td>
+								<td><button type="button" class="btn btn-secondary"
+										(click)="addToSentence(word)">Add</button></td>
 							</tr>
 						</tbody>
 					</table>
-					
-					<div class="d-flex justify-content-between p-2">
-						<ngb-pagination
-							[collectionSize]="wordsCollectionSize"
-							[(page)]="wordPageNumber"
-							[pageSize]="wordsPageSize"
-							(pageChange)="getWordsByWordTypesPagenation()"
-						>
-						</ngb-pagination>
 
-						<select class="form-select" style="width: auto" [(ngModel)]="wordsPageSize" (ngModelChange)="getWordsByWordTypesPagenation()">
-							<option [ngValue]="5">4 items per page</option>
-							<option [ngValue]="10">6 items per page</option>
-						</select>
+					<div class="d-flex justify-content-between p-2">
+						<ngb-pagination [collectionSize]="wordsCollectionSize" [(page)]="wordPageNumber"
+							[pageSize]="wordsPageSize" [maxSize]="5" [rotate]="true"
+							(pageChange)="getWordsByWordTypesPagenation(wordPageNumber)">
+						</ngb-pagination>
 					</div>
 				</div>
-
 				<div *ngIf="createSentence.length > 0">
 					<h4>Sentence</h4>
 					<div class="row">
-						<div class="col3">
+						<div class="col-lg">
 							{{ createSentence }}
 						</div>
-						<div class="col3">
-							<button type="button" class="btn btn-danger" (click)="clearSentence()">Clear</button>
-						</div>
-						<div class="col3">
-							<button type="button" class="btn btn-success" (click)="postSentence(createSentence)">Post</button>
+						<div class="col-lg">
+							<div class="row">
+								<div class="col-sm">
+									<button type="button" class="btn btn-danger" (click)="clearSentence()">Clear</button>
+									<button type="button" class="btn btn-success"
+										(click)="postSentence(createSentence)">Post</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -74,21 +70,35 @@
 		<li [ngbNavItem]="2">
 			<button ngbNavLink (click)="getSentences()">Sentences</button>
 			<ng-template ngbNavContent>
-				<p>
-					Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
-					farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean
-					shorts
-					ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.
-					Keytar
-					helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes
-					anderson
-					8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party
-					scenester
-					stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
-				</p>
+				<div *ngIf="wordsList.length > 0">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Word</th>
+								<th scope="col">Add</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let sentence of sentenceList; index as i">
+								<th scope="row">{{ i + 1 }}</th>
+								<td>{{ sentence.sentence }}</td>
+								<td><button type="button" class="btn btn-secondary"
+										(click)="deleteSentence(sentence.senteceID)">Add</button></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="d-flex justify-content-between p-2">
+						<ngb-pagination [collectionSize]="sentenceCollectionSize" [(page)]="sentencePageNumber"
+							[pageSize]="sentencePageSize" [maxSize]="5" [rotate]="true"
+							(pageChange)="getWordsByWordTypesPagenation(wordPageNumber)">
+						</ngb-pagination>
+					</div>
+				</div>
 			</ng-template>
 		</li>
 	</ul>
-	
+
 	<div [ngbNavOutlet]="nav" class="mt-2"></div>
 </div>

@@ -28,8 +28,6 @@ export class SentencesComponent implements OnInit, OnDestroy {
 
   public wordPageNumber: number = 1;
 
-  public page: number = 1;
-
   public wordsPageSize: number = 4;
 
   public wordsCollectionSize: number = 0;
@@ -37,6 +35,12 @@ export class SentencesComponent implements OnInit, OnDestroy {
   public createSentence: string = '';
 
   public sentenceList: SentenceTypes[] = [];
+
+  public sentencePageNumber: number = 1;
+
+  public sentencePageSize: number = 10;
+
+  public sentenceCollectionSize: number = 0;
 
   constructor(
     private sentenceService: SentenceService,
@@ -56,7 +60,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
         this.wordTypesList = resp.body;
       },
       error: (err: ErrorEvent) => {
-        this.toastr.error(err.message, 'Major Error', {
+        this.toastr.error(err.message, 'ERROR', {
           timeOut: 3000,
         });
         this.spinner.hide();
@@ -73,14 +77,14 @@ export class SentencesComponent implements OnInit, OnDestroy {
       next: (resp: any) => {
         this.toastr.success(`Words for ${wordType}`, 'SUCCESS');
         const { results, page } = resp.body as WordsApiDataReturn;
-        // this.wordsCollectionSize = results?.total!;
+        this.wordsCollectionSize = results?.total!;
         this.wordsList = results!.data!;
         this.wordsPageSize = this.wordTypesList.length;
         this.wordType = wordType;
         this.wordPageNumber = Number(page!);
       },
       error: (err: ErrorEvent) => {
-        this.toastr.error(err.message, 'Major Error', {
+        this.toastr.error(err.message, 'ERROR', {
           timeOut: 3000,
         });
         this.spinner.hide();
@@ -91,9 +95,9 @@ export class SentencesComponent implements OnInit, OnDestroy {
     });
   };
 
-  public getWordsByWordTypesPagenation = (): void => {
+  public getWordsByWordTypesPagenation = (pageNumber: number): void => {
     this.spinner.show();
-    this.subcription = this.sentenceService.getWordByTypes(this.wordType, this.wordPageNumber)
+    this.subcription = this.sentenceService.getWordByTypes(this.wordType, pageNumber)
       .subscribe({
         next: (resp: any) => {
           this.toastr.success(`Words for ${this.wordType}`, 'SUCCESS');
@@ -104,7 +108,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
           this.wordPageNumber = Number(page!);
         },
         error: (err: ErrorEvent) => {
-          this.toastr.error(err.message, 'Major Error', {
+          this.toastr.error(err.message, 'ERROR', {
             timeOut: 3000,
           });
           this.spinner.hide();
@@ -116,7 +120,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
   };
 
   public addToSentence = (word: String): void => {
-    this.createSentence += word;
+    this.createSentence += ` ${word}`;
   };
 
   public clearSentence = (): void => {
@@ -131,13 +135,14 @@ export class SentencesComponent implements OnInit, OnDestroy {
         console.log(resp.body);
       },
       error: (err: ErrorEvent) => {
-        this.toastr.error(err.message, 'Major Error', {
+        this.toastr.error(err.message, 'ERROR', {
           timeOut: 3000,
         });
         this.spinner.hide();
       },
       complete: () => {
         this.spinner.hide();
+        this.createSentence = '';
       },
     });
   };
@@ -150,7 +155,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
         this.wordTypesList = resp.body;
       },
       error: (err: ErrorEvent) => {
-        this.toastr.error(err.message, 'Major Error', {
+        this.toastr.error(err.message, 'ERROR', {
           timeOut: 3000,
         });
         this.spinner.hide();
@@ -169,7 +174,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
         console.log(resp.body);
       },
       error: (err: ErrorEvent) => {
-        this.toastr.error(err.message, 'Major Error', {
+        this.toastr.error(err.message, 'ERROR', {
           timeOut: 3000,
         });
         this.spinner.hide();
