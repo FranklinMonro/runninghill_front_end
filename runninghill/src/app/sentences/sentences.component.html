@@ -1,0 +1,105 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div style="padding: 5px;">
+	<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+		<li [ngbNavItem]="1">
+			<button ngbNavLink (click)="getWordTypes()">Create Sentence</button>
+			<ng-template ngbNavContent>
+				<div class="row">
+					<div class="col">
+						<div ngbDropdown class="d-inline-block">
+							<button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownBasic1"
+								ngbDropdownToggle>
+								Pick Word Type
+							</button>
+							<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+								<ul style="list-style-type: none">
+									<li *ngFor="let word of wordTypesList">
+										<button ngbDropdownItem (click)="getWordsByWordTypes(word.wordType!)">{{
+											word.wordType }}</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="wordsList.length > 0">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Word</th>
+								<th scope="col">Add</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let word of wordsList; index as i">
+								<th scope="row">{{ i + 1 }}</th>
+								<td>{{ word }}</td>
+								<td><button type="button" class="btn btn-secondary"
+										(click)="addToSentence(word)">Add</button></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="d-flex justify-content-between p-2">
+						<ngb-pagination [collectionSize]="wordsCollectionSize" [(page)]="wordPageNumber"
+							[pageSize]="wordsPageSize" [maxSize]="5" [rotate]="true"
+							(pageChange)="getWordsByWordTypesPagenation(wordPageNumber)">
+						</ngb-pagination>
+					</div>
+				</div>
+				<div *ngIf="createSentence.length > 0">
+					<h4>Sentence</h4>
+					<div class="row">
+						<div class="col-lg">
+							{{ createSentence }}
+						</div>
+						<div class="col-md">
+							<div class="row">
+								<div class="col">
+									<button type="button" class="btn btn-danger" (click)="clearSentence()">Clear</button>
+									&nbsp; 
+									<button type="button" class="btn btn-success"
+										(click)="postSentence(createSentence)">Post</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+		</li>
+		<li [ngbNavItem]="2">
+			<button ngbNavLink (click)="getSentences(sentencePageNumber)">Sentences</button>
+			<ng-template ngbNavContent>
+				<div *ngIf="wordsList.length > 0">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Word</th>
+								<th scope="col">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let sentence of sentenceList; index as i">
+								<th scope="row">{{ i + 1 }}</th>
+								<td>{{ sentence.sentence }}</td>
+								<td><button type="button" class="btn btn-danger"
+										(click)="deleteSentence(sentence.senteceID)">Delete</button></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="d-flex justify-content-between p-2">
+						<ngb-pagination [collectionSize]="sentenceCollectionSize" [(page)]="sentencePageNumber"
+							[pageSize]="sentencePageSize" [maxSize]="5" [rotate]="true"
+							(pageChange)="getSentences(sentencePageNumber)">
+						</ngb-pagination>
+					</div>
+				</div>
+			</ng-template>
+		</li>
+	</ul>
+
+	<div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>
