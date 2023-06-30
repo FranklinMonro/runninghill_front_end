@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/prefer-default-export */
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component, OnDestroy, OnInit,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -22,9 +24,15 @@ export class SentencesComponent implements OnInit, OnDestroy {
 
   public wordTypesList: WordTypes[] = [];
 
-  public words: string[] = [];
+  public wordsList: string[] = [];
 
   public wordPageNumber: number = 1;
+
+  public page: number = 1;
+
+  public pageSize: number = 4;
+
+  public collectionSize: number = 0;
 
   public sentenceList: SentenceTypes[] = [];
 
@@ -63,7 +71,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
       next: (resp: any) => {
         this.toastr.success(`Words for ${wordType}`, 'SUCCESS');
         const { results, page } = resp.body as WordsApiDataReturn;
-        this.words = results!.data!;
+        this.wordsList = results!.data!;
         this.wordType = wordType;
         this.wordPageNumber = Number(page!);
       },
@@ -86,7 +94,7 @@ export class SentencesComponent implements OnInit, OnDestroy {
         next: (resp: any) => {
           this.toastr.success(`Words for ${this.wordType}`, 'SUCCESS');
           const { results, page } = resp.body as WordsApiDataReturn;
-          this.words = results!.data!;
+          this.wordsList = results!.data!;
           this.wordPageNumber = Number(page!);
         },
         error: (err: ErrorEvent) => {

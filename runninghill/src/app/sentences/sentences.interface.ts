@@ -22,4 +22,5 @@ export {
   WordTypes,
   SentenceTypes,
   WordsApiDataReturn,
+  WordsApiDataResults,
 };
