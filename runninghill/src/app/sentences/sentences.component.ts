@@ -30,9 +30,11 @@ export class SentencesComponent implements OnInit, OnDestroy {
 
   public page: number = 1;
 
-  public pageSize: number = 4;
+  public wordsPageSize: number = 4;
 
-  public collectionSize: number = 0;
+  public wordsCollectionSize: number = 0;
+
+  public createSentence: string = '';
 
   public sentenceList: SentenceTypes[] = [];
 
@@ -71,7 +73,9 @@ export class SentencesComponent implements OnInit, OnDestroy {
       next: (resp: any) => {
         this.toastr.success(`Words for ${wordType}`, 'SUCCESS');
         const { results, page } = resp.body as WordsApiDataReturn;
+        // this.wordsCollectionSize = results?.total!;
         this.wordsList = results!.data!;
+        this.wordsPageSize = this.wordTypesList.length;
         this.wordType = wordType;
         this.wordPageNumber = Number(page!);
       },
@@ -94,7 +98,9 @@ export class SentencesComponent implements OnInit, OnDestroy {
         next: (resp: any) => {
           this.toastr.success(`Words for ${this.wordType}`, 'SUCCESS');
           const { results, page } = resp.body as WordsApiDataReturn;
+          this.wordsCollectionSize = results?.total!;
           this.wordsList = results!.data!;
+          this.wordsPageSize = this.wordTypesList.length;
           this.wordPageNumber = Number(page!);
         },
         error: (err: ErrorEvent) => {
@@ -107,6 +113,14 @@ export class SentencesComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         },
       });
+  };
+
+  public addToSentence = (word: String): void => {
+    this.createSentence += word;
+  };
+
+  public clearSentence = (): void => {
+    this.createSentence = '';
   };
 
   public postSentence = (sentence: string): void => {

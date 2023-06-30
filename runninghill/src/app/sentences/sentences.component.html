@@ -9,7 +9,7 @@
 						<div ngbDropdown class="d-inline-block">
 							<button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownBasic1"
 								ngbDropdownToggle>
-								Toggle dropdown
+								Pick Word Type
 							</button>
 							<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 								<ul style="list-style-type: none">
@@ -21,38 +21,53 @@
 						</div>
 					</div>
 				</div>
+				<div *ngIf="wordsList.length > 0">
+					<table class="table table-striped" >
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Word</th>
+								<th scope="col">Add</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let word of wordsList; index as i">
+								<th scope="row">{{ i + 1 }}</th>
+								<td>{{ word }}</td>
+								<td><button type="button" class="btn btn-secondary" (click)="addToSentence(word)">Add</button></td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<div class="d-flex justify-content-between p-2">
+						<ngb-pagination
+							[collectionSize]="wordsCollectionSize"
+							[(page)]="wordPageNumber"
+							[pageSize]="wordsPageSize"
+							(pageChange)="getWordsByWordTypesPagenation()"
+						>
+						</ngb-pagination>
 
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Word</th>
-							<th scope="col">Add</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let word of wordsList; index as i">
-							<th scope="row">{{ i }}</th>
-							<td>{{ word }}</td>
-							<td><button>Add</button></td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<div class="d-flex justify-content-between p-2">
-					<ngb-pagination
-						[collectionSize]="collectionSize"
-						[(page)]="page"
-						[pageSize]="pageSize"
-						(pageChange)="getWordsByWordTypesPagenation()"
-					>
-					</ngb-pagination>
-				
-					<select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="getWordsByWordTypesPagenation()">
-						<option [ngValue]="2">2 items per page</option>
-						<option [ngValue]="4">4 items per page</option>
-						<option [ngValue]="6">6 items per page</option>
-					</select>
+						<select class="form-select" style="width: auto" [(ngModel)]="wordsPageSize" (ngModelChange)="getWordsByWordTypesPagenation()">
+							<option [ngValue]="5">4 items per page</option>
+							<option [ngValue]="10">6 items per page</option>
+						</select>
+					</div>
+				</div>
+
+				<div *ngIf="createSentence.length > 0">
+					<h4>Sentence</h4>
+					<div class="row">
+						<div class="col3">
+							{{ createSentence }}
+						</div>
+						<div class="col3">
+							<button type="button" class="btn btn-danger" (click)="clearSentence()">Clear</button>
+						</div>
+						<div class="col3">
+							<button type="button" class="btn btn-success" (click)="postSentence(createSentence)">Post</button>
+						</div>
+					</div>
 				</div>
 			</ng-template>
 		</li>
