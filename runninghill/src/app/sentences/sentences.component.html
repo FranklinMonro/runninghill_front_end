@@ -77,15 +77,15 @@
 							<tr>
 								<th scope="col">#</th>
 								<th scope="col">Word</th>
-								<th scope="col">Add</th>
+								<th scope="col">Delete</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr *ngFor="let sentence of sentenceList; index as i">
 								<th scope="row">{{ i + 1 }}</th>
 								<td>{{ sentence.sentence }}</td>
-								<td><button type="button" class="btn btn-secondary"
-										(click)="deleteSentence(sentence.senteceID)">Add</button></td>
+								<td><button type="button" class="btn btn-danger"
+										(click)="deleteSentence(sentence.senteceID)">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>

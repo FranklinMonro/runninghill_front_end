@@ -8,7 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { SentenceService } from './sentence.service';
-import { SencteceReturns, SentenceTypes, WordTypes, WordsApiDataReturn } from './sentences.interface';
+import {
+  SencteceReturns, SentenceTypes, WordTypes, WordsApiDataReturn,
+} from './sentences.interface';
 
 @Component({
   selector: 'app-sentences',
